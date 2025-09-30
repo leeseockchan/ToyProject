@@ -47,10 +47,11 @@ public class NotePad {
         NoteEntity noteEntity = noteEntities.get(selectedNumber);
 
         System.out.println("=============================");
-        String headLine = String.format("번호:%d 제목:%s", selectedNumber, noteEntity.getTitle());
+        String headLine = String.format("번호:%d\n제목:%s\n작성자:%s",
+                selectedNumber, noteEntity.getTitle(), noteEntity.getUser());
         System.out.println(headLine);
-        System.out.println("작성일 : " + noteEntity.getLastUpdatedDateTime());
         System.out.println("내용 : " + noteEntity.getContent());
+        System.out.println("작성일 : " + noteEntity.getLastUpdatedDateTime());
         System.out.println("=============================\n");
     }
 
@@ -63,12 +64,14 @@ public class NotePad {
 //            System.out.println("");
 //            return;
 //        }
+        System.out.println("작성자 이름을 기재해주세요");
+        String user = scanner.nextLine();
         System.out.println("제목을 작성해주세요");
         String title = scanner.nextLine();
         System.out.println("본문을 작성해주세요");
         String content = scanner.nextLine();
 
-        noteEntities.add(NoteEntity.newInstance(title, content));
+        noteEntities.add(NoteEntity.newInstance(title, user, content));
 
         System.out.println("메모가 성공적으로 작성되었습니다. \n");
     }
@@ -84,15 +87,16 @@ public class NotePad {
             System.out.println("오류 : 작성되지 않은 메모 입니다. \n");
             return;
         }
-
+        System.out.println("작성자의 이름을 다시 적어 주세요");
+        String user = scanner.nextLine();
         System.out.println("수정 할 제목을 작성해주세요");
         String title = scanner.nextLine();
-
         System.out.println("수정 할 본문을 작성해주세요");
         String content = scanner.nextLine();
 
         NoteEntity noteEntity = noteEntities.get(selectedNumber);
         noteEntity.updateTitle(title);
+        noteEntity.updateUser(user);
         noteEntity.updateContent(content);
 
         System.out.println("메모가 수정되었습니다. \n");
